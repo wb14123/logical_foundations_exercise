@@ -1471,12 +1471,20 @@ Inductive bin : Type :=
         for binary numbers, and a function [bin_to_nat] to convert
         binary numbers to unary numbers. *)
 
-Fixpoint incr (m:bin) : bin
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+Fixpoint incr (m:bin) : bin :=
+  match m with
+    | Z => B Z
+    | A m' => B m'
+    | B m' => A (incr m')
+  end.
 
-Fixpoint bin_to_nat (m:bin) : nat
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
-
+Fixpoint bin_to_nat (m:bin) : nat :=
+  match m with
+    | Z => 0
+    | A m' => (bin_to_nat m') * (S (S 0))
+    | B m' => (bin_to_nat m') * (S (S 0)) + (S 0)
+end.
+ 
 (**    (b) Write five unit tests [test_bin_incr1], [test_bin_incr2], etc.
         for your increment and binary-to-unary functions.  (A "unit
         test" in Coq is a specific [Example] that can be proved with
@@ -1485,7 +1493,58 @@ Fixpoint bin_to_nat (m:bin) : nat
         then converting it to unary should yield the same result as
         first converting it to unary and then incrementing. *)
 
-(* FILL IN HERE *)
+Example test_bin_incr1:
+  (incr Z) = B Z.
+Proof. simpl. reflexivity. Qed.
+
+Example test_bin_incr2:
+  (incr (B Z)) = (A (B Z)).
+Proof. simpl. reflexivity. Qed.
+
+Example test_bin_incr3:
+  (incr (A (B Z))) = (B (B Z)).
+Proof. simpl. reflexivity. Qed.
+
+Example test_bin_incr4:
+  (incr (B (B Z))) = (A (A (B Z))).
+Proof. simpl. reflexivity. Qed.
+
+Example test_bin_incr5:
+  (incr (A (A (B Z)))) = (B (A (B Z))).
+Proof. simpl. reflexivity. Qed.
+
+Example test_bin_incr6:
+  (incr (B (A (B Z)))) = (A (B (B Z))).
+Proof. simpl. reflexivity. Qed.
+
+Example test_to_nat0:
+  bin_to_nat Z = 0.
+Proof. simpl. reflexivity. Qed.
+
+
+Example test_to_nat1:
+  bin_to_nat (B Z) = S 0.
+Proof. simpl. reflexivity. Qed.
+
+
+Example test_to_nat2:
+  bin_to_nat (A (B Z))= S (S 0).
+Proof. simpl. reflexivity. Qed.
+
+
+Example test_to_nat3:
+  bin_to_nat (B (B Z))= S (S (S 0)).
+Proof. simpl. reflexivity. Qed.
+
+Example test_to_nat4:
+  bin_to_nat (A (A (B Z))) = S (S (S (S 0))).
+Proof. simpl. reflexivity. Qed.
+
+
+Example test_to_nat5:
+  bin_to_nat (B (A (B Z))) = S (S (S (S (S 0)))).
+Proof. simpl. reflexivity. Qed.
+
 
 (* Do not modify the following line: *)
 Definition manual_grade_for_binary : option (nat*string) := None.
