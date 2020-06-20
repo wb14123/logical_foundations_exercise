@@ -1,4 +1,6 @@
 \#*\#
+Makefile
+Makefile.conf
 
 .*.aux
 .*.d
