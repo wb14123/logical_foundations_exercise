@@ -1409,12 +1409,30 @@ Definition manual_grade_for_negation_fn_applied_twice : option (nat*string) := N
     [destruct] and [rewrite], but destructing everything in sight is
     not the best way.) *)
 
+
+Theorem orb_true:
+  true = (orb true false).
+Proof. reflexivity. Qed.
+
+Theorem andb_false:
+  false = (andb false true).
+Proof. reflexivity. Qed.
+
+
 Theorem andb_eq_orb :
   forall (b c : bool),
   (andb b c = orb b c) ->
   b = c.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros b c.
+  intros H.
+  destruct b as [], c as [].
+  - reflexivity.
+  - rewrite -> orb_true. rewrite <- H. reflexivity.
+  - rewrite -> andb_false. rewrite -> H. reflexivity.
+  - reflexivity.
+Qed.
+
 
 (** [] *)
 
