@@ -517,12 +517,24 @@ Proof. reflexivity. Qed.
     requires techniques you haven't learned yet.  Feel free to ask for
     help if you get stuck! *)
 
-(*
-Theorem bag_theorem : ...
+
+Theorem self_eq : forall n: nat,
+  n =? n = true.
 Proof.
-  ...
+  induction n as [| n' Hn'].
+  - reflexivity.
+  - simpl. rewrite -> Hn'. reflexivity.
 Qed.
-*)
+
+
+Theorem bag_theorem : forall n: nat, forall s: bag,
+  (count n s) + 1 = count n (add n s).
+Proof.
+  intro n.
+  intro s.
+  simpl. rewrite -> self_eq. reflexivity.
+Qed.
+
 
 (* Do not modify the following line: *)
 Definition manual_grade_for_bag_theorem : option (nat*string) := None.
