@@ -1287,7 +1287,11 @@ Theorem update_eq :
   forall (d : partial_map) (x : id) (v: nat),
     find x (update d x v) = Some v.
 Proof.
- (* FILL IN HERE *) Admitted.
+  intros d x v.
+  simpl.
+  rewrite <- eqb_id_refl.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 1 star, standard (update_neq)  *)
@@ -1295,7 +1299,11 @@ Theorem update_neq :
   forall (d : partial_map) (x y : id) (o: nat),
     eqb_id x y = false -> find x (update d y o) = find x d.
 Proof.
- (* FILL IN HERE *) Admitted.
+  intros d x y o H.
+  simpl.
+  rewrite -> H.
+  reflexivity.
+Qed.
 (** [] *)
 End PartialMap.
 
@@ -1310,7 +1318,7 @@ Inductive baz : Type :=
 (** How _many_ elements does the type [baz] have? (Explain in words,
     in a comment.) *)
 
-(* FILL IN HERE *)
+(* Infinite elements *)
 
 (* Do not modify the following line: *)
 Definition manual_grade_for_baz_num_elts : option (nat*string) := None.
