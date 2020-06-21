@@ -961,10 +961,21 @@ Qed.
     definitions about bags above. *)
 
 (** **** Exercise: 1 star, standard (count_member_nonzero)  *)
+
+Theorem plus_1_r: forall n:nat, n+1 = S n.
+Proof.
+  induction n as [| n' Hn'].
+  - reflexivity.
+  - simpl. rewrite -> Hn'. reflexivity.
+Qed.
+
 Theorem count_member_nonzero : forall (s : bag),
   1 <=? (count 1 (1 :: s)) = true.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  induction s as [| n s' Hs'].
+  - reflexivity.
+  - simpl. rewrite -> plus_1_r. reflexivity.
+Qed.
 (** [] *)
 
 (** The following lemma about [leb] might help you in the next exercise. *)
