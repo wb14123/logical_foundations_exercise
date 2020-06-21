@@ -1010,9 +1010,60 @@ Qed.
     involving the functions [count] and [sum], and prove it using
     Coq.  (You may find that the difficulty of the proof depends on
     how you defined [count]!) *)
-(* FILL IN HERE 
 
-    [] *)
+
+Theorem bool_expand:
+  forall b: bool,
+  forall n1: nat,
+  forall n2: nat,
+  forall n3: nat,
+  match b with
+    | true => n1
+    | false => n2
+  end + n3 =
+  match b with
+    | true => n1 + n3
+    | false => n2 + n3
+  end.
+Proof.
+  destruct b as [].
+    - reflexivity.
+    - reflexivity.
+Qed.
+
+Theorem plus_assoc1: forall a b c: nat,
+  a + b + c = a + c + b.
+Proof.
+  intro a. intro b. intro c.
+  rewrite <- plus_assoc.
+  rewrite <- plus_assoc.
+  assert (H: b + c = c + b). {
+    rewrite plus_comm.
+    reflexivity.
+  }
+  rewrite <- H.
+  reflexivity.
+Qed.
+
+
+Theorem count_sum_eq:
+  forall v: nat,
+  forall s1: bag,
+  forall s2: bag,
+  (count v s1) + (count v s2) = count v (sum s1 s2).
+Proof.
+  intro v.
+  intro s1.
+  intro s2.
+  induction s1 as [| n s1' Hs1'].
+  - reflexivity.
+  - simpl.
+    rewrite <- Hs1'.
+    rewrite -> bool_expand.
+    rewrite <- plus_assoc1.
+    reflexivity.
+Qed.
+
 
 (** **** Exercise: 4 stars, advanced (rev_injective)  
 
