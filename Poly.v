@@ -811,10 +811,28 @@ Proof. reflexivity.  Qed.
     Show that [map] and [rev] commute.  You may need to define an
     auxiliary lemma. *)
 
+
+Theorem map_add : forall
+  (X Y: Type)
+  (f : X -> Y)
+  (x : X)
+  (l : list X),
+  map f (l ++ [x]) =  map f l ++ [f x].
+Proof.
+  intros X Y f x l.
+  induction l as [| n l' Hl'].
+  - reflexivity.
+  - simpl. rewrite -> Hl'. reflexivity.
+Qed.
+
 Theorem map_rev : forall (X Y : Type) (f : X -> Y) (l : list X),
   map f (rev l) = rev (map f l).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros X Y f l.
+  induction l as [| n l' Hl'].
+  - reflexivity.
+  - simpl. rewrite -> map_add. rewrite -> Hl'. reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars, standard, recommended (flat_map)  
