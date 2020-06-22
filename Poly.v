@@ -527,6 +527,8 @@ Fixpoint combine {X Y : Type} (lx : list X) (ly : list Y)
       print? 
 
     [] *)
+Check @combine.
+Compute (combine [1;2] [false;false;true;true]).
 
 (** **** Exercise: 2 stars, standard, recommended (split)  
 
@@ -538,13 +540,17 @@ Fixpoint combine {X Y : Type} (lx : list X) (ly : list Y)
     given unit test. *)
 
 Fixpoint split {X Y : Type} (l : list (X*Y))
-               : (list X) * (list Y)
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+               : (list X) * (list Y) :=
+  match l with
+  | nil => (nil, nil)
+  | (x, y) :: t => match split t with
+    | (t1, t2) => (x::t1, y::t2)
+    end
+  end.
 
 Example test_split:
   split [(1,false);(2,false)] = ([1;2],[false;false]).
-Proof.
-(* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
 (** [] *)
 
 (* ================================================================= *)
