@@ -438,12 +438,23 @@ Qed.
 Theorem rev_app_distr: forall X (l1 l2 : list X),
   rev (l1 ++ l2) = rev l2 ++ rev l1.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros X l1 l2.
+  induction l1 as [| n1 l1' Hl1'].
+  - simpl. rewrite -> app_nil_r. reflexivity.
+  - simpl. rewrite -> Hl1'. rewrite -> app_assoc. reflexivity.
+Qed.
 
 Theorem rev_involutive : forall X : Type, forall l : list X,
   rev (rev l) = l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros X l.
+  induction l as [| n l' Hl'].
+  - reflexivity.
+  - simpl.
+    rewrite -> rev_app_distr.
+    rewrite -> Hl'.
+    reflexivity.
+Qed.
 (** [] *)
 
 (* ================================================================= *)
