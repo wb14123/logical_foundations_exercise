@@ -157,13 +157,13 @@ Inductive grumble (X:Type) : Type :=
 
 (** Which of the following are well-typed elements of [grumble X] for
     some type [X]?  (Add YES or NO to each line.)
-      - [d (b a 5)]
-      - [d mumble (b a 5)]
-      - [d bool (b a 5)]
-      - [e bool true]
-      - [e mumble (b c 0)]
-      - [e bool (b c 0)]
-      - [c]  *)
+      - [d (b a 5)] no
+      - [d mumble (b a 5)] yes
+      - [d bool (b a 5)] yes
+      - [e bool true] yes
+      - [e mumble (b c 0)] yes
+      - [e bool (b c 0)] yes
+      - [c] no *)
 (* FILL IN HERE *)
 End MumbleGrumble.
 
@@ -406,17 +406,29 @@ Definition list123''' := [1; 2; 3].
 Theorem app_nil_r : forall (X:Type), forall l:list X,
   l ++ [] = l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  induction l as [| n l' Hl'].
+  - reflexivity.
+  - simpl. rewrite -> Hl'. reflexivity.
+Qed.
 
 Theorem app_assoc : forall A (l m n:list A),
   l ++ m ++ n = (l ++ m) ++ n.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros X l m n.
+  induction l as [| h l' Hl'].
+  - reflexivity.
+  - simpl. rewrite -> Hl'. reflexivity.
+Qed.
 
 Lemma app_length : forall (X:Type) (l1 l2 : list X),
   length (l1 ++ l2) = length l1 + length l2.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros X l1 l2.
+  induction l1 as [| n1 l1' Hl1'].
+  - reflexivity.
+  - simpl. rewrite -> Hl1'. reflexivity.
+Qed.
+
 (** [] *)
 
 (** **** Exercise: 2 stars, standard, optional (more_poly_exercises)  
