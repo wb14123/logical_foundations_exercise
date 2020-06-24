@@ -1136,6 +1136,7 @@ Definition manual_grade_for_informal_proof : option (nat*string) := None.
 Module Church.
 Definition cnat := forall X : Type, (X -> X) -> X -> X.
 
+
 (** Let's see how to write some numbers with this notation. Iterating
     a function once should be the same as just applying it.  Thus: *)
 
@@ -1170,17 +1171,17 @@ Definition three : cnat := @doit3times.
 (** Successor of a natural number: given a Church numeral [n],
     the successor [succ n] is a function that iterates its
     argument once more than [n]. *)
-Definition succ (n : cnat) : cnat
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+Definition succ (n : cnat) : cnat :=
+  fun (X : Type) (f : X -> X) (x: X) => f (n X f x).
 
 Example succ_1 : succ zero = one.
-Proof. (* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
 
 Example succ_2 : succ one = two.
-Proof. (* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
 
 Example succ_3 : succ two = three.
-Proof. (* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
 
 (** [] *)
 
