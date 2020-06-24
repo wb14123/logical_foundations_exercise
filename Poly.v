@@ -935,7 +935,8 @@ Proof. reflexivity. Qed.
     situation where it would be useful for [X] and [Y] to be
     different? *)
 
-(* FILL IN HERE *)
+(* An example: Given a list of lists, we want to count the sum of length
+  for the lists. *)
 
 (* Do not modify the following line: *)
 Definition manual_grade_for_fold_types_different : option (nat*string) := None.
@@ -1014,7 +1015,12 @@ Proof. reflexivity. Qed.
 Theorem fold_length_correct : forall X (l : list X),
   fold_length l = length l.
 Proof.
-(* FILL IN HERE *) Admitted.
+intros X l.
+induction l as [| n l' Hl'].
+- reflexivity.
+- simpl. rewrite <- Hl'. reflexivity.
+Qed.
+
 (** [] *)
 
 (** **** Exercise: 3 stars, standard (fold_map)  
