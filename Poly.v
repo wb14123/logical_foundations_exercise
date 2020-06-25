@@ -1232,7 +1232,7 @@ Proof. reflexivity. Qed.
 
 
 Definition exp (n m : cnat) : cnat :=
-  fun (X: Type) (f: X -> X) (x: X) => (m (X -> X) (n X) (one X f)) x.
+  fun (X: Type) (f: X -> X) (x: X) => (m (X -> X) (n X) f) x.
 
 Example exp_0: exp three one = three.
 Proof. reflexivity. Qed.
