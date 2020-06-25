@@ -1229,17 +1229,23 @@ Proof. reflexivity. Qed.
     a "Universe inconsistency" error, try iterating over a different
     type.  Iterating over [cnat] itself is usually problematic.) *)
 
-Definition exp (n m : cnat) : cnat
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+
+
+Definition exp (n m : cnat) : cnat :=
+  fun (X: Type) (f: X -> X) (x: X) => (m (X -> X) (n X) (one X f)) x.
+
+Example exp_0: exp three one = three.
+Proof. reflexivity. Qed.
 
 Example exp_1 : exp two two = plus two two.
-Proof. (* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
 
 Example exp_2 : exp three zero = one.
-Proof. (* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
 
 Example exp_3 : exp three two = plus (mult two (mult two two)) one.
-Proof. (* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
+
 
 (** [] *)
 
