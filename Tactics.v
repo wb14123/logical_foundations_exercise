@@ -105,11 +105,18 @@ Proof.
     just hypotheses in the context.  Remember that [Search] is
     your friend.) *)
 
+Search rev.
+
 Theorem rev_exercise1 : forall (l l' : list nat),
      l = rev l' ->
      l' = rev l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l l' H.
+  symmetry.
+  rewrite <- rev_involutive.
+  rewrite <- H.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 1 star, standard, optional (apply_rewrite)  
