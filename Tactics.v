@@ -438,7 +438,23 @@ Theorem plus_n_n_injective : forall n m,
      n = m.
 Proof.
   intros n. induction n as [| n'].
-  (* FILL IN HERE *) Admitted.
+  - intros m H.
+    induction m as [| m' Hm'].
+    + reflexivity.
+    + simpl in H. discriminate H.
+  - intros m H.
+    induction m as [| m' Hm'].
+    + simpl in H.
+      discriminate H.
+    + simpl in H.
+      rewrite <- plus_n_Sm in H.
+      rewrite <- plus_n_Sm in H.
+      injection H as H'.
+      apply IHn' in H'.
+      rewrite <- H'.
+      reflexivity.
+Qed.
+
 (** [] *)
 
 (* ################################################################# *)
