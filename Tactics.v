@@ -1123,7 +1123,12 @@ Qed.
 Theorem eqb_sym : forall (n m : nat),
   (n =? m) = (m =? n).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  induction n as [| n' Hn'], m as [| m' Hm'].
+  - reflexivity.
+  - reflexivity.
+  - reflexivity.
+  - simpl. rewrite <- Hn'. reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 3 stars, advanced, optional (eqb_sym_informal)  
