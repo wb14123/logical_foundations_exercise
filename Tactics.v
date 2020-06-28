@@ -611,7 +611,15 @@ Proof.
 Theorem eqb_true : forall n m,
     n =? m = true -> n = m.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n.
+  induction n as [| n' Hn'].
+  - intro m. destruct m as [].
+    + reflexivity.
+    + simpl. intros H. discriminate H.
+  - intro m. destruct m as [].
+    + simpl. intros H. discriminate H.
+    + simpl. intros H. apply Hn' in H. rewrite -> H. reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars, advanced (eqb_true_informal)  
