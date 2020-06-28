@@ -1149,7 +1149,16 @@ Theorem eqb_trans : forall n m p,
   m =? p = true ->
   n =? p = true.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  induction n as [| n' Hn'].
+  - destruct m.
+    + intros p H1 H2. apply H2.
+    + intros p H1 H2. discriminate H1.
+  - destruct m.
+    + intros p H1 H2. discriminate H1.
+    + destruct p.
+      * intros H1 H2. discriminate H2.
+      * simpl. apply Hn'.
+Qed.
 (** [] *)
 
 (** **** Exercise: 3 stars, advanced (split_combine)  
