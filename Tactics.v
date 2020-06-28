@@ -1175,14 +1175,30 @@ Qed.
     things than necessary.  Hint: what property do you need of [l1]
     and [l2] for [split (combine l1 l2) = (l1,l2)] to be true?) *)
 
-Definition split_combine_statement : Prop
-  (* ("[: Prop]" means that we are giving a name to a
-     logical proposition here.) *)
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+
+
+Definition split_combine_statement : Prop :=
+  forall X Y (l1: list X) (l2: list Y),
+  length l1 = length l2 ->
+  split (combine l1 l2) = (l1, l2).
+
 
 Theorem split_combine : split_combine_statement.
 Proof.
-(* FILL IN HERE *) Admitted.
+  intros X Y.
+  induction l1 as [| h1 l1' Hl1'].
+  - destruct l2.
+    + reflexivity.
+    + intro H. discriminate H.
+  - destruct l2.
+    + intro H. discriminate H.
+    + simpl.
+      intro H.
+      injection H as H1.
+      apply Hl1' in H1.
+      rewrite -> H1.
+      reflexivity.
+Qed.
 
 (* Do not modify the following line: *)
 Definition manual_grade_for_split_combine : option (nat*string) := None.
