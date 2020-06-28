@@ -285,7 +285,11 @@ Example injection_ex3 : forall (X : Type) (x y z : X) (l j : list X),
   y :: l = x :: j ->
   x = y.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros X x y z l j H1 H2.
+  injection H2. intros H21 H22.
+  rewrite <- H22.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** So much for injectivity of constructors.  What about disjointness?
