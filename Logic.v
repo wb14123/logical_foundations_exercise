@@ -151,11 +151,19 @@ Proof.
   - (* 2 + 2 = 4 *) reflexivity.
 Qed.
 
+
 (** **** Exercise: 2 stars, standard (and_exercise)  *)
 Example and_exercise :
   forall n m : nat, n + m = 0 -> n = 0 /\ m = 0.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  split.
+  - destruct n.
+    + reflexivity.
+    + discriminate H.
+  - destruct m.
+    + reflexivity.
+    + rewrite -> plus_comm in H. discriminate H.
+Qed.
 (** [] *)
 
 (** So much for proving conjunctive statements.  To go in the other
