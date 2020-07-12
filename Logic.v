@@ -350,7 +350,10 @@ Qed.
 Theorem or_commut : forall P Q : Prop,
   P \/ Q  -> Q \/ P.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros P Q [Hp | Hq].
+  - right. apply Hp.
+  - left. apply Hq.
+Qed.
 (** [] *)
 
 (* ================================================================= *)
