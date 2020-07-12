@@ -613,12 +613,23 @@ Qed.
 Theorem iff_refl : forall P : Prop,
   P <-> P.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros P.
+  unfold iff.
+  split.
+  - intro H. apply H.
+  - intro H. apply H.
+Qed.
 
 Theorem iff_trans : forall P Q R : Prop,
   (P <-> Q) -> (Q <-> R) -> (P <-> R).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros P Q R.
+  unfold iff.
+  intros [Hpq Hqp] [Hqr Hrq].
+  split.
+  - intro Hp. apply Hpq in Hp. apply Hqr in Hp. apply Hp.
+  - intro Hr. apply Hrq in Hr. apply Hqp in Hr. apply Hr.
+Qed.
 (** [] *)
 
 (** **** Exercise: 3 stars, standard (or_distributes_over_and)  *)
