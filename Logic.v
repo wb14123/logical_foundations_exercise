@@ -486,8 +486,7 @@ Theorem contrapositive : forall (P Q : Prop),
 Proof.
   intros P Q H.
   unfold not.
-  intros H1.
-  intros H2.
+  intros H1 H2.
   apply H in H2.
   apply H1 in H2.
   destruct H2.
@@ -498,7 +497,12 @@ Qed.
 Theorem not_both_true_and_false : forall P : Prop,
   ~ (P /\ ~P).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intro P.
+  unfold not.
+  intros [H1 H2].
+  apply H2 in H1.
+  destruct H1.
+Qed.
 (** [] *)
 
 (** **** Exercise: 1 star, advanced (informal_not_PNP)  
