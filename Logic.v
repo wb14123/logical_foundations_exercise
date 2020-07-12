@@ -636,7 +636,22 @@ Qed.
 Theorem or_distributes_over_and : forall P Q R : Prop,
   P \/ (Q /\ R) <-> (P \/ Q) /\ (P \/ R).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros P Q R.
+  unfold iff.
+  split.
+  - intros H. split.
+    + destruct H.
+      * left. apply H.
+      * destruct H as [Hq Hr]. right. apply Hq.
+    + destruct H.
+      * left. apply H.
+      * destruct H as [Hq Hr]. right. apply Hr.
+  - intros [Hpq Hpr]. destruct Hpq as [Hp | Hq].
+    + left. apply Hp.
+    + destruct Hpr as [Hpp | Hr].
+      * left. apply Hpp.
+      * right. split. { apply Hq. } {apply Hr. }
+Qed.
 (** [] *)
 
 (** Some of Coq's tactics treat [iff] statements specially, avoiding
