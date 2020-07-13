@@ -921,15 +921,31 @@ Qed.
     lemma below.  (Of course, your definition should _not_ just
     restate the left-hand side of [All_In].) *)
 
-Fixpoint All {T : Type} (P : T -> Prop) (l : list T) : Prop
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+Fixpoint All {T : Type} (P : T -> Prop) (l : list T) : Prop :=
+  match l with
+  | [] => True
+  | x :: l' => P x /\ All P l'
+  end.
 
 Lemma All_In :
   forall T (P : T -> Prop) (l : list T),
     (forall x, In x l -> P x) <->
     All P l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros T P l.
+  unfold iff.
+  split.
+  - induction l as [|x' l' Hl'].
+    + simpl. reflexivity.
+    + simpl. intros H. split.
+      * apply H. left. reflexivity.
+      * apply Hl'. intros x H1. apply H. right. apply H1.
+  - induction l as [|x' l' Hl'].
+    + simpl. intros H1 H2 [].
+    + simpl. intros [H1 H2] x [H3 | H3].
+      * rewrite <- H3. apply H1.
+      * apply Hl'. { apply H2. } { apply H3. }
+Qed.
 (** [] *)
 
 (** **** Exercise: 3 stars, standard (combine_odd_even)  
