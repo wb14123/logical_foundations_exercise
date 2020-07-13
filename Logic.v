@@ -891,7 +891,22 @@ Qed.
 Lemma In_app_iff : forall A l l' (a:A),
   In a (l++l') <-> In a l \/ In a l'.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros A l l' a.
+  unfold iff.
+  split.
+  - induction l as [|x' l'' Hl'].
+    + simpl. intros H. right. apply H.
+    + simpl. rewrite <- or_assoc. intros [H | H].
+      * left. apply H.
+      * right. apply Hl' in H. apply H.
+  - induction l as [|x' l'' Hl'].
+    + simpl. intros [H | H].
+      * destruct H.
+      * apply H.
+    + simpl. rewrite <- or_assoc. intros [H | H].
+      * left. apply H.
+      * right. apply Hl' in H. apply H.
+Qed.
 (** [] *)
 
 (** **** Exercise: 3 stars, standard, recommended (All)  
